@@ -97,6 +97,7 @@ function SliceMark({ id, color }: { id: SegmentIconId; color: string }) {
 export function PrizeWheel({ disabled = false, onSpinEnd }: Props) {
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
+  const [spinDuration, setSpinDuration] = useState(SPIN_MS);
 
   const slices = useMemo(
     () =>
@@ -122,6 +123,7 @@ export function PrizeWheel({ disabled = false, onSpinEnd }: Props) {
     const duration = prefersReduced ? 200 : SPIN_MS;
     const next = winningRotation();
     setSpinning(true);
+    setSpinDuration(duration);
     setRotation(next);
     if (!prefersReduced) {
       void playSpinSound(duration);
@@ -137,9 +139,9 @@ export function PrizeWheel({ disabled = false, onSpinEnd }: Props) {
   const buttonLabel = spinning ? "Girando..." : disabled ? "Já girou" : "Girar agora";
 
   return (
-    <div className="relative mx-auto w-[min(100%,22rem)] pt-7 sm:w-[24rem] lg:w-[26rem]">
+    <div className="relative mx-auto w-full max-w-[22rem] pt-8 sm:max-w-[25rem] lg:max-w-[27rem]">
       <div
-        className="pointer-events-none absolute top-0 left-1/2 z-20 -translate-x-1/2"
+        className="pointer-events-none absolute top-0 left-1/2 z-20 -translate-x-1/2 drop-shadow-[0_3px_2px_rgba(42,24,16,0.22)]"
         aria-hidden="true"
       >
         <svg width="34" height="44" viewBox="0 0 34 44">
@@ -151,18 +153,18 @@ export function PrizeWheel({ disabled = false, onSpinEnd }: Props) {
         </svg>
       </div>
 
-      <div className="relative aspect-square">
+      <div className="relative aspect-square rounded-full bg-giro-paper p-1.5 shadow-[0_18px_45px_rgba(42,24,16,0.22)]">
         <div
-          className="absolute inset-0 rounded-full bg-[#2A1810] shadow-[0_18px_40px_rgba(42,24,16,0.28)]"
+          className="absolute inset-1.5 rounded-full bg-[#2A1810]"
           aria-hidden="true"
         />
         <svg
           viewBox={`0 0 ${SIZE} ${SIZE}`}
-          className="relative z-10 h-full w-full p-2 will-change-transform"
+          className="relative z-10 h-full w-full p-2.5 will-change-transform"
           style={{
             transform: `rotate(${rotation}deg)`,
             transition: spinning
-              ? `transform ${SPIN_MS}ms cubic-bezier(0.08, 0.72, 0.08, 1)`
+              ? `transform ${spinDuration}ms cubic-bezier(0.08, 0.72, 0.08, 1)`
               : "none",
           }}
           role="img"
@@ -189,8 +191,8 @@ export function PrizeWheel({ disabled = false, onSpinEnd }: Props) {
                   <text
                     textAnchor="middle"
                     fill={slice.segment.text}
-                    fontFamily="Baloo 2, ui-rounded, sans-serif"
-                    fontSize="13"
+                    fontFamily="Manrope, ui-sans-serif, sans-serif"
+                    fontSize="13.5"
                     fontWeight="800"
                   >
                     {slice.segment.lines.map((line, lineIndex) => (
@@ -213,10 +215,13 @@ export function PrizeWheel({ disabled = false, onSpinEnd }: Props) {
           type="button"
           onClick={spin}
           disabled={spinning || disabled}
-          className="absolute top-1/2 left-1/2 z-20 flex h-[5.1rem] w-[5.1rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-giro-red px-2 text-center font-display text-[0.72rem] leading-tight font-extrabold tracking-wide text-white uppercase shadow-[0_8px_0_#6b1d2a] disabled:cursor-not-allowed disabled:opacity-85"
+          className="absolute top-1/2 left-1/2 z-20 flex h-[5.4rem] w-[5.4rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-giro-paper bg-giro-red px-2 text-center text-[0.68rem] font-extrabold leading-tight tracking-[0.08em] text-white uppercase shadow-[0_8px_0_#65141f] transition duration-200 enabled:hover:-translate-y-[54%] enabled:hover:bg-[#741722] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-giro-gold disabled:cursor-not-allowed disabled:bg-[#a94b4b]"
         >
           {buttonLabel}
         </button>
+        <p className="sr-only" aria-live="polite">
+          {spinning ? "A roleta está girando." : disabled ? "Você já girou a roleta." : "A roleta está pronta para girar."}
+        </p>
       </div>
     </div>
   );

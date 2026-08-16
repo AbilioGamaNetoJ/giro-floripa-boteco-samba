@@ -33,48 +33,55 @@ export function RedeemForm({ onSubmit }: Props) {
   }
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      <label className="flex flex-col gap-1 text-left text-sm font-semibold text-giro-ink">
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+      <label htmlFor="name" className="flex flex-col gap-1.5 text-left text-sm font-bold text-giro-ink">
         Nome
         <input
           type="text"
+          id="name"
           name="name"
           autoComplete="name"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          className="rounded-xl border border-[#e4d2b4] bg-white px-3 py-2.5 font-medium text-giro-ink outline-none focus:border-giro-terracotta"
+          className="min-h-12 rounded-xl border border-[#d7c29e] bg-white px-3.5 py-2.5 font-medium text-giro-ink shadow-sm outline-none transition placeholder:text-giro-ink/45 focus:border-giro-terracotta focus:ring-3 focus:ring-giro-terracotta/20"
         />
       </label>
 
-      <label className="flex flex-col gap-1 text-left text-sm font-semibold text-giro-ink">
+      <label htmlFor="whatsapp" className="flex flex-col gap-1.5 text-left text-sm font-bold text-giro-ink">
         WhatsApp
         <input
           type="tel"
+          id="whatsapp"
           name="whatsapp"
           inputMode="numeric"
           autoComplete="tel"
           placeholder="(48) 99999-9999"
           value={whatsapp}
           onChange={(event) => setWhatsapp(formatPhone(event.target.value))}
-          className="rounded-xl border border-[#e4d2b4] bg-white px-3 py-2.5 font-medium text-giro-ink outline-none focus:border-giro-terracotta"
+          className="min-h-12 rounded-xl border border-[#d7c29e] bg-white px-3.5 py-2.5 font-medium text-giro-ink shadow-sm outline-none transition placeholder:text-giro-ink/45 focus:border-giro-terracotta focus:ring-3 focus:ring-giro-terracotta/20"
         />
       </label>
 
-      <label className="flex items-start gap-2 text-left text-xs leading-relaxed text-giro-ink/80">
+      <label htmlFor="regulation" className="flex items-start gap-2.5 text-left text-xs leading-relaxed text-giro-ink/80">
         <input
           type="checkbox"
+          id="regulation"
           checked={accepted}
           onChange={(event) => setAccepted(event.target.checked)}
-          className="mt-0.5 accent-giro-terracotta"
+          className="mt-0.5 h-4 w-4 shrink-0 accent-giro-terracotta"
         />
         Li e aceito o regulamento: 1 cupom por pessoa, válido na primeira visita, não cumulativo.
       </label>
 
-      {error ? <p className="text-sm font-semibold text-giro-red">{error}</p> : null}
+      {error ? (
+        <p role="alert" className="text-sm font-bold text-giro-red">
+          {error}
+        </p>
+      ) : null}
 
       <button
         type="submit"
-        className="mt-1 rounded-full bg-giro-orange py-3 font-display text-lg font-extrabold text-white shadow-[0_4px_0_#9a4a12] transition hover:-translate-y-0.5"
+        className="mt-1 min-h-13 rounded-full bg-giro-orange px-5 py-3 text-base font-extrabold text-white shadow-[0_5px_0_#9a4a12] transition duration-200 hover:-translate-y-0.5 hover:bg-[#c96520] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-giro-ink active:translate-y-0 active:shadow-[0_2px_0_#9a4a12]"
       >
         Resgatar meu cupom
       </button>

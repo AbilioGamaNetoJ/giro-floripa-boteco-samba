@@ -1,29 +1,35 @@
 import { useEffect, useState } from "react";
 import { prize } from "../data/prize";
 import { generateCouponCode } from "../lib/coupon";
-import { readClaim, writeClaim } from "../lib/storage";
+import { readClaim, readSpin, writeClaim, writeSpin } from "../lib/storage";
 import { PrizeWheel } from "./PrizeWheel";
 import { WinModal } from "./WinModal";
 
 export default function WheelApp() {
   const [ready, setReady] = useState(false);
-  const [won, setWon] = useState(false);
+  const [hasSpun, setHasSpun] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
 
   useEffect(() => {
     const claim = readClaim();
+    const spin = readSpin();
+
+    setHasSpun(Boolean(spin || claim));
     if (claim) {
       setName(claim.name);
       setCode(claim.code);
-      setWon(true);
     }
     setReady(true);
   }, []);
 
   function handleSpinEnd() {
-    setWon(true);
+    writeSpin({
+      prizeId: prize.id,
+      spunAt: new Date().toISOString(),
+    });
+    setHasSpun(true);
     setModalOpen(true);
   }
 
@@ -40,18 +46,18 @@ export default function WheelApp() {
   }
 
   if (!ready) {
-    return <div className="mx-auto h-[22rem] w-[min(100%,22rem)] sm:h-[24rem] sm:w-[24rem]" />;
+    return <div className="mx-auto h-[22rem] w-full max-w-[22rem] sm:h-[25rem] sm:max-w-[25rem]" />;
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <PrizeWheel disabled={won} onSpinEnd={handleSpinEnd} />
+    <div className="flex w-full flex-col items-center gap-5">
+      <PrizeWheel disabled={hasSpun} onSpinEnd={handleSpinEnd} />
 
-      {won && !modalOpen ? (
+      {hasSpun && !modalOpen ? (
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="rounded-full bg-giro-terracotta px-5 py-2 font-display text-sm font-bold text-white"
+          className="min-h-12 rounded-full bg-giro-terracotta px-6 py-3 text-sm font-extrabold tracking-[0.01em] text-white shadow-[0_5px_0_#8b1e1e] transition duration-200 hover:-translate-y-0.5 hover:bg-[#af3521] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-giro-ink active:translate-y-0 active:shadow-[0_2px_0_#8b1e1e]"
         >
           {code ? "Ver meu cupom" : "Resgatar prêmio"}
         </button>
