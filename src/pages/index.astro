@@ -6,15 +6,15 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout
   title="Roleta Premiada Giro Floripa"
-  description="Gire a roleta do Giro Floripa e saia com prêmio garantido para usar na sua primeira visita. Boteco e samba em Canasvieiras."
+  description="Gire a roleta do Giro Floripa e descubra o que você liberou para aproveitar na sua primeira visita. Boteco e samba em Canasvieiras."
 >
   <PennantBanner />
 
   <main id="main-content" class="mx-auto w-full max-w-7xl px-5 py-8 sm:px-8 lg:flex lg:min-h-[calc(100vh-2rem)] lg:flex-col lg:px-10 lg:py-10">
     <section
-      class="grid items-center gap-10 lg:flex-1 lg:grid-cols-[minmax(0,0.94fr)_minmax(25rem,0.86fr)] lg:gap-14 xl:gap-20"
+      class="grid min-w-0 items-center gap-10 lg:flex-1 lg:grid-cols-[minmax(0,1.128fr)_minmax(25rem,0.86fr)] lg:gap-14 xl:gap-20"
     >
-      <div class="max-w-2xl text-center lg:text-left">
+      <div class="w-full min-w-0 max-w-[50.4rem] text-center lg:text-left">
         <div
           class="mx-auto mb-6 flex h-17 w-17 items-center justify-center rounded-2xl border border-white/80 bg-giro-paper shadow-[0_10px_22px_rgba(42,24,16,0.12)] lg:mx-0"
         >
@@ -32,14 +32,14 @@ import Layout from "../layouts/Layout.astro";
         <p class="text-xs font-extrabold tracking-[0.22em] text-giro-terracotta uppercase sm:text-sm">
           Giro Floripa · Canasvieiras
         </p>
-        <h1 class="mt-3 max-w-[11ch] font-display text-[clamp(3rem,8vw,5.75rem)] leading-[0.92] tracking-[-0.035em] text-giro-red max-lg:mx-auto">
-          Todo giro sai com <span class="text-giro-terracotta">prêmio</span>
+        <h1 class="mt-3 w-full max-w-full font-display text-[clamp(1.85rem,8.5vw,2.75rem)] leading-[0.92] tracking-[-0.035em] text-giro-red max-lg:mx-auto sm:max-w-[11ch] sm:text-[clamp(2.295rem,6.12vw,4.399rem)]">
+          Roleta com <span class="sm:whitespace-nowrap">prêmio <span class="text-giro-terracotta">garantido</span></span>
         </h1>
         <div class="mx-auto mt-6 h-px w-16 bg-giro-gold lg:mx-0" aria-hidden="true"></div>
-        <p class="mt-5 text-base font-bold leading-relaxed text-giro-ink sm:text-lg">
-          Uma rodada, um prêmio na hora para usar na sua primeira visita ao boteco. Leva 5 segundos.
+        <p class="mx-auto mt-5 max-w-full text-base font-bold leading-relaxed text-giro-ink sm:max-w-[39.55ch] sm:text-lg lg:mx-0">
+          Gire e descubra o que liberou no Giro Floripa.
         </p>
-        <ol class="mx-auto mt-7 flex max-w-md flex-col gap-3.5 text-left lg:mx-0">
+        <ol class="mx-auto mt-7 flex w-full max-w-full flex-col gap-3.5 text-left sm:max-w-md lg:mx-0">
           <li class="flex items-start gap-3">
             <span
               class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-giro-red font-display text-xs font-bold text-white"
@@ -66,8 +66,8 @@ import Layout from "../layouts/Layout.astro";
               >3</span
             >
             <p class="text-sm leading-6 text-giro-ink/75">
-              <strong class="font-extrabold text-giro-ink">Aproveite.</strong> Mostre o código no
-              balcão do Giro.
+              <strong class="font-extrabold text-giro-ink">Aproveite.</strong> Mostre o cupom no
+              balcão.
             </p>
           </li>
         </ol>
@@ -81,7 +81,7 @@ import Layout from "../layouts/Layout.astro";
     <footer class="mt-12 border-t border-giro-ink/15 pt-6 text-center text-xs leading-relaxed text-giro-ink/70 lg:text-left">
       <p>
         Promoção por tempo limitado, válida na primeira visita, enquanto durar a campanha. Um cupom
-        por pessoa, não cumulativo com outras ofertas. Mostre o código no balcão.
+        por pessoa, não cumulativo com outras ofertas.
       </p>
       <p class="mt-2">
         Rua Madre Maria Vilac, 1773 · Canasvieiras, Florianópolis ·

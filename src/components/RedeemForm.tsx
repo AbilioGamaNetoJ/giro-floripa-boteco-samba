@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { formatPhone, isValidMobile } from "../lib/phone";
+import { formatPhone, getPhoneValidationError } from "../lib/phone";
 
 type Props = {
   onSubmit: (name: string, whatsapp: string) => void;
@@ -19,8 +19,9 @@ export function RedeemForm({ onSubmit }: Props) {
       setError("Digite seu nome.");
       return;
     }
-    if (!isValidMobile(whatsapp)) {
-      setError("Digite um WhatsApp válido com DDD.");
+    const phoneError = getPhoneValidationError(whatsapp);
+    if (phoneError) {
+      setError(phoneError);
       return;
     }
     if (!accepted) {
